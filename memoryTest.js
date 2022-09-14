@@ -7,6 +7,7 @@ var background = "url(img/karta.png)";
 var oneVisible = false;
 var turnCounter = 0;
 var visibleNumber = 0;
+var enableclick = true;
 
 //c0.addEventListener("click", function() {revealCard(0);}); - 'normal way'
 //$(c0).on('click', function() {revealCard(0);}); - 'jQuery way'
@@ -20,7 +21,7 @@ function init()
     for (var i=0; i<=11; i++)
     {
        (function(e){
-        $('#c'+e).click(function() {revealCard(e);});
+        $('#c'+e).on("click", function() {revealCard(e);});
        })(i);
     }
 }
@@ -28,28 +29,35 @@ function init()
 
 function revealCard(nr)
 {
+    if (enableclick == true)
+    {
+        enableclick = false;
+        var image = "url(img/" + cards[nr] +")";
+        $('#c'+nr).css('background-image', image);
+        $('#c'+nr).off("click");
+        /*
+        $('#c'+nr).addClass('cardA');
+        $('#c'+nr).removeClass('card');
+        */
+        $('#c'+nr).toggleClass('cardA'); //switch class
+
+        if (!oneVisible)
+        {
+            oneVisible = true;
+            visibleNumber = nr;
+            enableclick = true;
+        }
+        else
+        {
+            incrCount();
+            oneVisible = false;
+            compare(visibleNumber, nr);
+        }
+        
+    }
+
+
     
-    var image = "url(img/" + cards[nr] +")";
-
-    $('#c'+nr).css('background-image', image);
-    /*
-    $('#c'+nr).addClass('cardA');
-    $('#c'+nr).removeClass('card');
-    */
-    $('#c'+nr).toggleClass('cardA'); //switch class
-
-    if (!oneVisible)
-    {
-        oneVisible = true;
-        visibleNumber = nr;
-    }
-    else
-    {
-        incrCount();
-        oneVisible = false;
-        compare(visibleNumber, nr);
-
-    }
     
 
 }
@@ -63,29 +71,41 @@ function incrCount()
 function compare(card1, card2)
 {
     if (cards[card1] == cards[card2])
-        deletePair(card1, card2);
-    else
-    {
-        setTimeout(function() {hideCards(card1, card2);}, 750);
-        
-    }
-        
+        setTimeout(function() {deletePair(card1, card2);}, 750);         
+    else    
+        setTimeout(function() {hideCards(card1, card2);}, 1000);   
+
 }
 
 function hideCards(card1, card2)
 {
-    alert('pudlo');
     $('#c'+card1).css('background-image', background);
-    $('#c'+card1).toggleClass('card');
+    $('#c'+card1).toggleClass('cardA', false);
     $('#c'+card2).css('background-image', background);
-    $('#c'+card2).toggleClass('card');
+    $('#c'+card2).toggleClass('cardA', false);
+
+    $('#c'+card1).on("click", function() {revealCard(card1);});
+    $('#c'+card2).on("click", function() {revealCard(card2);});
     
+    enableclick = true;
 }
 
 function deletePair(card1, card2)
 {
-    //alert('para');
+    //Removing an event handler
+   // $('#c'+card1).unbind("click");
+    //$('#c'+card2).off("click");
+
+    //Set gray filter
+    $('#c'+card1).css('filter', 'grayscale(1)');
+    $('#c'+card2).css('filter', 'grayscale(1)');
+
+    enableclick = true;
+    
+    /*  Img disapears
     $('#c'+card1).css('opacity', '0');
     $('#c'+card2).css('opacity', '0');
+    */
+    
 }
 
