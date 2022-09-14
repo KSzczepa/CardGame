@@ -6,6 +6,7 @@ var cards = ["ciri.png", "geralt.png", "jaskier.png", "jaskier.png", "iorweth.pn
 var background = "url(img/karta.png)";
 var oneVisible = false;
 var turnCounter = 0;
+var visibleNumber = 0;
 
 //c0.addEventListener("click", function() {revealCard(0);}); - 'normal way'
 //$(c0).on('click', function() {revealCard(0);}); - 'jQuery way'
@@ -27,7 +28,7 @@ function init()
 
 function revealCard(nr)
 {
-    var visibleNumber = 0;
+    
     var image = "url(img/" + cards[nr] +")";
 
     $('#c'+nr).css('background-image', image);
@@ -62,9 +63,13 @@ function incrCount()
 function compare(card1, card2)
 {
     if (cards[card1] == cards[card2])
-        deletePair();
+        deletePair(card1, card2);
     else
-        hideCards();
+    {
+        setTimeout(function() {hideCards(card1, card2);}, 750);
+        
+    }
+        
 }
 
 function hideCards(card1, card2)
@@ -74,10 +79,13 @@ function hideCards(card1, card2)
     $('#c'+card1).toggleClass('card');
     $('#c'+card2).css('background-image', background);
     $('#c'+card2).toggleClass('card');
+    
 }
 
 function deletePair(card1, card2)
 {
-    alert('para');
+    //alert('para');
+    $('#c'+card1).css('opacity', '0');
+    $('#c'+card2).css('opacity', '0');
 }
 
