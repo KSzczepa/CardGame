@@ -1,5 +1,7 @@
-var cards = ["ciri.png", "geralt.png", "jaskier.png", "jaskier.png", "iorweth.png", "triss.png", 
+/*var cards = ["ciri.png", "geralt.png", "jaskier.png", "jaskier.png", "iorweth.png", "triss.png", 
 "geralt.png", "yen.png", "ciri.png", "triss.png", "yen.png", "iorweth.png"];
+*/
+var cards = ["ciri.png", "geralt.png", "jaskier.png", "iorweth.png", "triss.png", "yen.png"];
 
 //console.log(cards);
 
@@ -8,6 +10,7 @@ var oneVisible = false;
 var turnCounter = 0;
 var visibleNumber = 0;
 var enableclick = true;
+var numOfCards = 12;
 
 //c0.addEventListener("click", function() {revealCard(0);}); - 'normal way'
 //$(c0).on('click', function() {revealCard(0);}); - 'jQuery way'
@@ -18,7 +21,9 @@ window.onload = init;
 
 function init()
 {
-    for (var i=0; i<=11; i++)
+    cards = randomOrder(cards, 12);
+
+    for (var i=0; i<numOfCards; i++)
     {
        (function(e){
         $('#c'+e).on("click", function() {revealCard(e);});
@@ -57,8 +62,6 @@ function revealCard(nr)
     }
 
 
-    
-    
 
 }
 
@@ -92,11 +95,6 @@ function hideCards(card1, card2)
 
 function deletePair(card1, card2)
 {
-    //Removing an event handler
-   // $('#c'+card1).unbind("click");
-    //$('#c'+card2).off("click");
-
-    //Set gray filter
     $('#c'+card1).css('filter', 'grayscale(1)');
     $('#c'+card2).css('filter', 'grayscale(1)');
 
@@ -109,3 +107,45 @@ function deletePair(card1, card2)
     
 }
 
+
+function getRandomInt(max) 
+{
+    return Math.floor(Math.random() * max);
+}
+
+
+function randomOrder(origArray, numberOfCards)
+{
+    var newArray = [];
+    var count = 0;
+    var card = '';
+
+    for (var i=0; i<(numberOfCards); i++)
+    {
+        count = 0;
+        while (count==0 || count>2)
+        {
+            card = getRandomInt(numberOfCards/2);
+            count = check(newArray, numberOfCards, origArray[card]);
+        }        
+        
+        newArray.push(origArray[card]);
+        console.log(newArray[i]+' count: '+count);
+        
+    }
+    return newArray;
+}
+
+ //Check if there are exactly 2 cards in the array
+ function check(set, nr, card)
+ {
+     var count = 1;
+ 
+     for (var m=0; m<(nr); m++)
+     {
+         if (card == set[m])
+             count ++;
+     }
+ 
+     return count;
+ }
