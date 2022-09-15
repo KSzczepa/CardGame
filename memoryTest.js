@@ -5,7 +5,8 @@ var oneVisible = false;
 var turnCounter = 0;
 var visibleNumber = 0;
 var enableclick = true;
-var numOfCards = 12;
+const numOfCards = 12;
+var numOfPairs = 0;
 
 //c0.addEventListener("click", function() {revealCard(0);}); - 'normal way'
 //$(c0).on('click', function() {revealCard(0);}); - 'jQuery way'
@@ -69,10 +70,15 @@ function incrCount()
 function compare(card1, card2)
 {
     if (cards[card1] == cards[card2])
-        setTimeout(function() {deletePair(card1, card2);}, 750);         
+    {
+        numOfPairs ++;
+        setTimeout(function() {deletePair(card1, card2);}, 750);
+    }
+                 
     else    
         setTimeout(function() {hideCards(card1, card2);}, 1000);   
-
+        setTimeout(function() {final();}, 5000);  
+        
 }
 
 function hideCards(card1, card2)
@@ -150,4 +156,10 @@ function getRandomCardsOrder(origArray, numberOfCards)
  {
      window.location = 
          "D:/Dokumenty/JS/odc5_gra/CardGame/"+fileName+".html"
+ }
+
+ function final()
+ {
+    if ((numOfCards/2) == numOfPairs)
+        force_load_local('reload_page');
  }
