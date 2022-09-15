@@ -1,9 +1,4 @@
-/*var cards = ["ciri.png", "geralt.png", "jaskier.png", "jaskier.png", "iorweth.png", "triss.png", 
-"geralt.png", "yen.png", "ciri.png", "triss.png", "yen.png", "iorweth.png"];
-*/
 var cards = ["ciri.png", "geralt.png", "jaskier.png", "iorweth.png", "triss.png", "yen.png"];
-
-//console.log(cards);
 
 var background = "url(img/karta.png)";
 var oneVisible = false;
@@ -21,7 +16,7 @@ window.onload = init;
 
 function init()
 {
-    cards = randomOrder(cards, 12);
+    cards = getRandomCardsOrder(cards, 12);
 
     for (var i=0; i<numOfCards; i++)
     {
@@ -114,7 +109,7 @@ function getRandomInt(max)
 }
 
 
-function randomOrder(origArray, numberOfCards)
+function getRandomCardsOrder(origArray, numberOfCards)
 {
     var newArray = [];
     var count = 0;
@@ -148,4 +143,11 @@ function randomOrder(origArray, numberOfCards)
      }
  
      return count;
+ }
+
+
+ function force_load_local(fileName) 
+ {
+     window.location = 
+         "D:/Dokumenty/JS/odc5_gra/CardGame/"+fileName+".html"
  }

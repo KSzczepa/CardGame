@@ -37,6 +37,16 @@ p
     text-align: center;
 }
 
+.board2
+{
+    width: 200px;
+    height: 400px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 .card
 {
     width: 125px;
@@ -75,4 +85,77 @@ p
 {
     margin-top: 5px;
     letter-spacing: 2px;
+}
+
+.button
+{
+    background-color: black;
+    color: seagreen;
+    border: 4px solid seagreen;
+    filter: brightness(70%);
+    margin-top: 50px;
+    letter-spacing: 2px;
+    width: 160px;
+    height: 112px;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: solid;
+    font-size: 30px;
+    font-weight: 300;
+    text-size-adjust: 30px;
+    font-family: Lobster;
+    transition: all .3s ease-in-out;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.button:hover
+{
+    filter: brightness(100%);
+    color: darkgoldenrod;
+    border: 4px solid darkgoldenrod;
+}
+
+.big_button
+{
+    background-color: black;
+    color: seagreen;
+    border: 7px solid seagreen;
+    filter: brightness(70%);
+    margin-top: 75px;
+    letter-spacing: 2px;
+    width: 250px;
+    height: 160px;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: solid;
+    font-size: 32px;
+    font-weight: 400;
+    font-family: Lobster;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+    border-radius: 30px;
+    line-height: 40px;
+}
+
+.big_button:hover
+{
+    filter: brightness(100%);
+    color: darkgoldenrod;
+    border: 4px solid darkgoldenrod;
+}
+
+
+.win
+{
+    text-align: center;
+    letter-spacing: 2px;
+    line-height: 40px;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration-color: darkgoldenrod;
 }
