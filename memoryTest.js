@@ -28,19 +28,48 @@ function init()
 }
 
 
+function delay(n) {  
+    n = n || 2000;
+    return new Promise(done => {
+      setTimeout(() => {
+        done();
+      }, n);
+    });
+  }
+
+
 function revealCard(nr)
 {
+    const asyncWait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+     
+
     if (enableclick == true)
     {
         enableclick = false;
+
+
+        
+        $('#c'+nr).css('animation', 'mymove 0.75s ease-in-out');
+        $('#c'+nr).css('animation-direction', 'normal');
+        
+        
+
         var image = "url(img/" + cards[nr] +")";
-        $('#c'+nr).css('background-image', image);
+        //$('#c'+nr).css('background-image', image);
         $('#c'+nr).off("click");
         /*
         $('#c'+nr).addClass('cardA');
         $('#c'+nr).removeClass('card');
         */
+        
+        setTimeout(function() {
+            
+        $('#c'+nr).css('background-image', image);
         $('#c'+nr).toggleClass('cardA'); //switch class
+        }, 380);
+
+        setTimeout(function() {
 
         if (!oneVisible)
         {
@@ -54,6 +83,8 @@ function revealCard(nr)
             oneVisible = false;
             compare(visibleNumber, nr);
         }
+        }, 150);
+
         
     }
 
@@ -72,11 +103,11 @@ function compare(card1, card2)
     if (cards[card1] == cards[card2])
     {
         numOfPairs ++;
-        setTimeout(function() {deletePair(card1, card2);}, 750);
+        setTimeout(function() {deletePair(card1, card2);}, 1000);
     }
                  
     else    
-        setTimeout(function() {hideCards(card1, card2);}, 1000);   
+        setTimeout(function() {hideCards(card1, card2);}, 1500);   
         setTimeout(function() {final();}, 5000);  
         
 }
@@ -84,8 +115,16 @@ function compare(card1, card2)
 function hideCards(card1, card2)
 {
     $('#c'+card1).css('background-image', background);
-    $('#c'+card1).toggleClass('cardA', false);
+    $('#c'+card1).css('-webkit-transform', 'none');
+    $('#c'+card1).css('-ms-transform', 'none');
+    $('#c'+card1).css('transform', 'none');
+    $('#c'+card1).toggleClass('cardA', false);     
+       
+    
     $('#c'+card2).css('background-image', background);
+    $('#c'+card2).css('-webkit-transform', 'rotateY(0deg)');
+    $('#c'+card2).css('-ms-transform', 'rotateY(0deg)');
+    $('#c'+card2).css('transform', 'rotateY(0deg)');
     $('#c'+card2).toggleClass('cardA', false);
 
     $('#c'+card1).on("click", function() {revealCard(card1);});
