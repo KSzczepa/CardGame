@@ -36,7 +36,7 @@ function getRandomCardsOrder(origArray, numberOfCards)
         }        
         
         newArray.push(origArray[card]);
-        console.log(newArray[i]+' count: '+count);
+        //console.log(newArray[i]+' count: '+count);
         
     }
     return newArray;

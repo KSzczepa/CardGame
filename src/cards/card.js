@@ -5,14 +5,17 @@ const Card = (props) => {
 
     var image = "url(img/" + props.character +")";
 
-    const revealClassHandler = () => {
-        console.log(props.character);
-        const newImg={'background-image' : image}
+    const [wasClicked, setCardClickedState] = useState(false);
+    //const [disable, setCardAsDisable] = useState(props.disable);
 
-        //return <div className='card' style={newImg} onClick={revealClassHandler}></div>
+    const clickCardHandler = () => {
+        setCardClickedState(!wasClicked);
+        console.log('Updated!', wasClicked);
+        props.clickedCard(wasClicked);
     }
 
-    return <div className='card' onClick={revealClassHandler}></div>
+
+    return <div className='card' onClick={clickCardHandler}></div>
 }
 
 export default Card;
