@@ -55,7 +55,7 @@ const CardsBoard = (props) => {
     if (numberOfCards != 0) {
                      
         const charactersSorted = SortCards(characters, numberOfCards);
-        
+        console.log(charactersSorted[0]);
 
         board = charactersSorted.map((element) => (
             <Card
@@ -67,7 +67,7 @@ const CardsBoard = (props) => {
             />))
     }
 
-    
+
     
 
     return (<div className='board'>
