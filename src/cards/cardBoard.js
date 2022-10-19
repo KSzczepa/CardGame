@@ -2,47 +2,78 @@ import React, { useState } from 'react';
 import './cardBoard.css';
 import Card from './card.js';
 import getRandomCardsOrder from './RandomCardsNum';
+import Counter from '../counter.js';
+import SortCards from './sortCards.js'
+
+const SetBoard = () => {
+
+}
 
 
 const CardsBoard = (props) => {
-    const numberOfCards = props.items.length*2;
+
+    //const [counter, setScore] = useState(0);
+    const [disableState, setState] = useState(false);
+
+    const numberOfCards = props.items.length * 2;
     const characters = props.items;
     let board = <p>There is not enough cards to display.</p>;
-    /* const defaulfImage = 'img/hogwards.jpg';
-    let image = 'img/' + props.character + '.jpg';
-    let visibleCardSide = defaulfImage; */
-    
+    let firstHero = null;
+    let counter = 0;
+    let score = <div className='score'>Turn counter: 0</div>;
 
-     const clickedCardHandler = (reveivedData) => {
-        const clicked = reveivedData;
-        console.log('clicked!', clicked);
-     };
+    const clickedCardHandler = (reveivedData) => {
+        const clicked = reveivedData.status;
+        let secondHero = board[reveivedData.id];
+        console.log('clicked!', reveivedData);
+        //console.log('b****', board[reveivedData.id]);
+        
+        if (firstHero == null){
+            firstHero = secondHero;
+            setState(true);
+            console.log(board[reveivedData.id].props.disable);
+        }
+        else {
+            console.log('first:', firstHero.props.character, 'second:', secondHero.props.character);
+            if (firstHero.props.character == secondHero.props.character){
+                counter++;
+                console.log(counter);
+                //setScore(counter+1);
+            }
+            else {
+                firstHero = null;
+                secondHero = null;
+                
+            }
 
-    /*  const revealCard = (isActive) => {
-        isActive ? (visibleCardSide = image) : (visibleCardSide = defaulfImage);
-        console.log(visibleCardSide);
-    } */
-
-    if (numberOfCards != 0) {
-        const charactersSorted = getRandomCardsOrder(characters, numberOfCards);
-
-        for (let i=0; i<numberOfCards; i++){
-            charactersSorted.splice(i, 1, {id: i, character: charactersSorted[i]});
         }
         
+        
+    };
+
+
+    if (numberOfCards != 0) {
+                     
+        const charactersSorted = SortCards(characters, numberOfCards);
+        
+
         board = charactersSorted.map((element) => (
-            <Card 
-                key={element.id} 
-                character={element.character} 
-                disable={true}
-                clickedCard={clickedCardHandler}          
+            <Card
+                key={element.id}
+                id={element.id}
+                character={element.character}
+                disable={element.disable}
+                clickedCard={clickedCardHandler}
             />))
     }
 
+    
+    
+
     return (<div className='board'>
-                {board}          
-                <div className='score'>Turn counter: 0</div>
-            </div>)
+        {board}
+        <Counter score={counter}></Counter>
+    </div>)
 }
 
 

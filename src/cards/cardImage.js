@@ -6,20 +6,20 @@ import hermione from './img/hermione.jpg'
 import dumpledore from './img/dumbledore.jpg'
 import voldemort from './img/voldemort.jpg'
 import dobby from './img/dobby.jpg'
+let block = false;
 
 const CardImg = (props) => {
 
     let image = props.activeCard.split('.').filter(word => word != 'jpg').join();
-    console.log(image);
-
     
-
+    
+    
     
     const changeStateHangler = () => {
-        if (props.isActive){
+        if (!props.isActive){   
             switch (image){
                 case 'harry':
-                    image = harry; 
+                    image = harry;             
                     break;
                 case 'ron':
                     image = ron; 
@@ -41,9 +41,17 @@ const CardImg = (props) => {
             }
         }
         else
+        {
             image = hogward;
+                
+                
+        } 
+        
     }
+
+    
     changeStateHangler();
+    
 
     return (<img src={image}></img>)
 }

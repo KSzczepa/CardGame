@@ -6,19 +6,26 @@ const Card = (props) => {
     
     let activeCharacter = props.character;
     const [wasClicked, setCardClickedState] = useState(true);
-    //const [disable, setCardAsDisable] = useState(props.disable);
-
-    const clickCardHandler = () => {        
-        setCardClickedState(!wasClicked);        
-        props.clickedCard(wasClicked);
-    }
-
+    const [disable, setCardAsDisable] = useState(false);
+    const id = props.id;
     
 
-    return <div className={wasClicked ? 'card' : 'cardRevealed'} onClick={clickCardHandler}><CardImg activeCard={activeCharacter} isActive={wasClicked ? false : true}/></div>
-    //return <div className={wasClicked ? 'card' : 'cardRevealed'} onClick={clickCardHandler} style={{backgroundImage : {revealCard}}}></div>
-    //return <div className={wasClicked ? 'card' : 'cardRevealed'} onClick={clickCardHandler} style={{backgroundImage : `url(${visibleCardSide})`}}></div>
-   
+    const clickCardHandler = () => {   
+        if (!disable){    
+            setCardClickedState(!wasClicked);        
+            props.clickedCard({id: id, hero: activeCharacter, status: wasClicked});
+            setCardAsDisable(true);
+            //props.disable({id: id, status: disable});
+        }
+
+    }
+
+    const activationCardHandler = () => {
+        /* props.disable({id: id, status: disable}); */
+    }
+
+    return <div className={wasClicked ? 'card' : 'cardRevealed'} onClick={clickCardHandler}><CardImg id={id} activeCard={activeCharacter} isActive={wasClicked ? true : false}/></div>
+    
 }
 
 export default Card;
