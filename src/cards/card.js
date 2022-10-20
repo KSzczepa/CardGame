@@ -27,9 +27,9 @@ const Card = (props) => {
       }, [props.disable]);
 
     
+      const onClick=props.onClick;
 
-
-    return <div className={wasClicked ? 'card' : 'cardRevealed'} onClick={clickCardHandler}><CardImg id={id} activeCard={activeCharacter} isActive={wasClicked ? true : false} /></div>
+    return <div className={wasClicked ? 'card' : 'cardRevealed'} onClick={onClick}/* onClick={clickCardHandler} */><CardImg id={id} activeCard={activeCharacter} isActive={wasClicked ? true : false} /></div>
 }
 
 
