@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import './App.css';
 import CardsBoard from './cards/cardBoard'
 
@@ -6,9 +8,11 @@ function App() {
 
   const names = ['harry.jpg', 'voldemort.jpg', 'ron.jpg', 'hermione.jpg', 'dumpledore.jpg', 'dobby.jpg'];
 
+  
+
   return (
     <div className="App">
-      
+            
       <h1>Harry Potter Test</h1>
       <article>
         <CardsBoard items={names}></CardsBoard>
