@@ -23,6 +23,7 @@ function App() {
 
     if (boardSorted[card1].character == boardSorted[card2].character) {
         console.log('point!');
+        setFinishedItem([...finishedItems, card1, card2]);
         
         if (pairsleft > 0)
             setPairsLeft(pairsleft-1);

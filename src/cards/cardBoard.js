@@ -20,6 +20,7 @@ const CardsBoard = (props) => {
     const setVisibleItem = props.setVisibleItem;
     const compareCards = props.compareCards;
     const boardSorted = props.boardSorted;
+    const finishedItems = props.finishedItems;
 
     const numberOfCards = props.items.length * 2;
     const characters = props.items;
