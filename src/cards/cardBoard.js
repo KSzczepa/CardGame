@@ -19,13 +19,14 @@ const CardsBoard = (props) => {
     const visibleItems = props.visibleItems;
     const setVisibleItem = props.setVisibleItem;
     const compareCards = props.compareCards;
+    const boardSorted = props.boardSorted;
 
     const numberOfCards = props.items.length * 2;
     const characters = props.items;
     
     const [score, setScore] = useState(0);
     const [pairsleft, setPairsLeft] = useState(props.items.length);
-    const [boardSorted, setArrayVal] = useState(SortCards(characters, numberOfCards));
+    //const [boardSorted, setArrayVal] = useState(SortCards(characters, numberOfCards));
     //const [visibleItems, setVisibleItem] = useState([]);
     
     console.log('boardSorted', boardSorted);
@@ -122,7 +123,7 @@ const CardsBoard = (props) => {
                 }}
                 imgSource = {((visibleItems.includes(element.id) || element.disable) && element.active) ? SetSrc(element.character) : SetSrc()}
             />))}
-        <Counter score={score} pairsleft={pairsleft}></Counter>
+        {/* <Counter score={score} pairsleft={pairsleft}></Counter> */}
     </div>)
 }
 
