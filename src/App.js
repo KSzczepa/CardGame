@@ -7,45 +7,73 @@ import SortCards from './cards/sortCards.js'
 
 
 function App() {
-  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css"></link>
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css"></link>
 
-  const names = ['harry', 'voldemort', 'ron', 'hermione', 'dumbledore', 'dobby'];
-  const numberOfCards = names.length * 2;
-  
-  const [visibleItems, setVisibleItem] = useState([]);
-  const [finishedItems, setFinishedItem] = useState([]);
-  const [score, setScore] = useState(0);
-  const [pairsleft, setPairsLeft] = useState(names.length);
-  const [boardSorted, setArrayVal] = useState(SortCards(names, numberOfCards));
+	const names = ['harry', 'voldemort', 'ron', 'hermione', 'dumbledore', 'dobby'];
+	const numberOfCards = names.length * 2;
 
-  const compareCards = (card1, card2) => {
-    setScore(score+ 1);
+	const [visibleItems, setVisibleItem] = useState([]);
+	const [finishedItems, setFinishedItem] = useState([]);
+	const [score, setScore] = useState(0);
+	const [pairsleft, setPairsLeft] = useState(names.length);
+	const [boardSorted, setArrayVal] = useState(SortCards(names, numberOfCards));
+	const [winner, setWinner] = useState(false);
 
-    if (boardSorted[card1].character == boardSorted[card2].character) {
-        console.log('point!');
-        setFinishedItem([...finishedItems, card1, card2]);
-        
-        if (pairsleft > 0)
-            setPairsLeft(pairsleft-1);
-        return true;
-    }        
-    return false;
-}
-  
 
-  return (
-    <div className="App">
-            
-      <h1>Harry Potter Memory Test</h1>
-      <article>
-        <CardsBoard items={names} visibleItems={visibleItems} setVisibleItem={setVisibleItem} compareCards={compareCards} boardSorted={boardSorted} finishedItems={finishedItems} setFinishedItem={setFinishedItem}></CardsBoard>
-        <Counter score={score} pairsleft={pairsleft}></Counter>
-      </article>
-    
-      
-     
-    </div>
-  );
+	const compareCards = (card1, card2) => {
+		setScore(score + 1);
+
+		if (boardSorted[card1].character == boardSorted[card2].character) {
+			
+			setTimeout(() => {
+				setFinishedItem([...finishedItems, card1, card2]);
+			}, 300);
+
+			if (pairsleft > 0)
+				setPairsLeft(pairsleft - 1);
+			if (pairsleft == 0)
+			{
+				
+					setWinner(true);
+					console.log(winner);
+				
+			}
+				
+
+			boardSorted[card1].disable = true;
+			boardSorted[card2].disable = true;
+		}
+
+		else {
+			setTimeout(() => {
+				setVisibleItem([]);
+			}, 600);
+
+			boardSorted[card1].disable = false;
+			boardSorted[card2].disable = false;
+		}
+	}
+
+
+	return (
+		<div className="App">
+
+			<h1>Harry Potter Memory Test</h1>
+			<article>
+				<CardsBoard
+					visibleItems={visibleItems}
+					setVisibleItem={setVisibleItem}
+					compareCards={compareCards}
+					boardSorted={boardSorted}
+					finishedItems={finishedItems}
+					setFinishedItem={setFinishedItem}>
+				</CardsBoard>
+				<Counter score={score} pairsleft={pairsleft} winner={winner}></Counter>
+				
+			</article>
+
+		</div>
+	);
 }
 
 export default App;
