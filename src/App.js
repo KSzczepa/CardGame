@@ -6,7 +6,7 @@ import CardsBoard from './cards/cardBoard'
 function App() {
   <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css"></link>
 
-  const names = ['harry.jpg', 'voldemort.jpg', 'ron.jpg', 'hermione.jpg', 'dumpledore.jpg', 'dobby.jpg'];
+  const names = ['harry', 'voldemort', 'ron', 'hermione', 'dumpledore', 'dobby'];
 
   
 

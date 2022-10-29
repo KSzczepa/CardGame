@@ -1,9 +1,11 @@
+import './counter.css';
 
 const Counter = (props) => {
 
-    const score= props.score;
-
-    return (<div className='score'>Turn counter: {score}</div>)
+    return (<div className='score'>
+        <p>Turn counter: {props.score}</p>
+        <p>Pairs left: {props.pairsleft}</p>
+        </div>)
 }
 
 export default Counter;

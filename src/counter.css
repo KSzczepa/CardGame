@@ -1,5 +1,11 @@
-.score{
-    margin-top: 7px;
+.score {
+    margin-top: 15px;
+}
+.score p {
+    padding: 0;
+    margin-top: 0;
     letter-spacing: 2px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 26px;
+    margin: 10px;
 }

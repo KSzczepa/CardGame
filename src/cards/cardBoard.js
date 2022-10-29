@@ -1,33 +1,28 @@
 import React, { useState } from 'react';
 import './cardBoard.css';
 import Card from './card.js';
-import getRandomCardsOrder from './RandomCardsNum';
 import Counter from '../counter.js';
 import SortCards from './sortCards.js'
 
-const SetBoard = () => {
+import hogward from './img/hogwards.jpg'
+import harry from './img/harry.jpg'
+import ron from './img/ron.jpg'
+import hermione from './img/hermione.jpg'
+import dumpledore from './img/dumbledore.jpg'
+import voldemort from './img/voldemort.jpg'
+import dobby from './img/dobby.jpg'
 
-}
 
 
 const CardsBoard = (props) => {
 
-    //const [counter, setScore] = useState(0);
-    const [disableState, setState] = useState(false);
-
-    const aaa = () => {
-        console.log('clickeddddd');
-    }
     
 
     const numberOfCards = props.items.length * 2;
     const characters = props.items;
-    let board = <p>There is not enough cards to display.</p>;
-    let firstHero = null;
-    let counter = 0;
-    let score = <div className='score'>Turn counter: 0</div>;
-    let contCards = 0;
-
+    
+    const [score, setScore] = useState(0);
+    const [pairsleft, setPairsLeft] = useState(props.items.length);
     const [boardSorted, setArrayVal] = useState(SortCards(characters, numberOfCards));
     const [visibleItems, setVisibleItem] = useState([]);
     
@@ -36,33 +31,48 @@ const CardsBoard = (props) => {
     
 
     const compareCards = (card1, card2) => {
-        //console.log(boardSorted[card1].character);
+        setScore(score+ 1);
+        
         if (boardSorted[card1].character == boardSorted[card2].character) {
-
+            console.log('point!');
+            
+            if (pairsleft > 0)
+                setPairsLeft(pairsleft-1);
+            return true;
         }
-    
+        
+        return false;
     }
     
         
-   
-
-
-    if (numberOfCards != 0) {
-            
-
-      /*   board = boardSorted.map((element) => (
-            <Card
-                key={element.id}
-                id={element.id}
-                character={element.character}
-                disable={element.disable}
-                clickedCard={clickedCardHandler}
-                onClick={aaa}
-            />)) */
+    const SetSrc = (image) => {
+        switch (image){
+            case 'harry':
+                image = harry;             
+                break;
+            case 'ron':
+                image = ron; 
+                break;
+            case 'hermione':
+                image = hermione; 
+                break;
+            case 'dumpledore':
+                image = dumpledore; 
+                break;
+            case 'voldemort':
+                image = voldemort; 
+                break;
+            case 'dobby':
+                image = dobby; 
+                break;
+            default:
+                image = hogward;
+        }
+        return image;
     }
 
 
-    
+
 
     return (<div className='board'>
         {boardSorted.map((element) => (
@@ -72,33 +82,39 @@ const CardsBoard = (props) => {
                 character={element.character}
                 disable={element.disable}
                 onClick={()=>{
-                    switch (visibleItems.length){
-                        case 0: 
-                        {
-                            setVisibleItem([element.id]);
-                        }
-                            break;
-                        case 1:
-                        {
-                            if (visibleItems[0] != element.id) {
-                                setVisibleItem(visibleItems.concat(element.id));
-                                compareCards(visibleItems[0], element.id);
+                    if (!element.disable) {
+                        switch (visibleItems.length){
+                            case 0: 
+                            {
+                                setVisibleItem([element.id]);
                             }
-                            
+                                break;
+                            case 1:
+                            {
+                                if (visibleItems[0] != element.id) {
+                                    setVisibleItem(visibleItems.concat(element.id));
+                                    if (compareCards(visibleItems[0], element.id)) {
+                                        element.disable = true;
+                                        boardSorted[visibleItems[0]].disable = true;
+                                    }
+                                }
+                                
+                            }
+                                break;
+                            case 2:
+                            {
+                                setVisibleItem([element.id]);
+                            }
+                                break;
+                            default:
+                                setVisibleItem(([]));
                         }
-                            break;
-                        case 2:
-                        {
-                            setVisibleItem([element.id]);
-                        }
-                            break;
-                        default:
-                            setVisibleItem(([]));
                     }
                     
                 }}
+                imgSource = {SetSrc(element.character)}
             />))}
-        <Counter score={counter}></Counter>
+        <Counter score={score} pairsleft={pairsleft}></Counter>
     </div>)
 }
 

@@ -3,6 +3,17 @@ import './card.css'
 import CardImg from './cardImage';
 import CardsBoard from './cardBoard'
 
+
+import hogward from './img/hogwards.jpg'
+import harry from './img/harry.jpg'
+import ron from './img/ron.jpg'
+import hermione from './img/hermione.jpg'
+import dumpledore from './img/dumbledore.jpg'
+import voldemort from './img/voldemort.jpg'
+import dobby from './img/dobby.jpg'
+
+
+
 const Card = (props) => {
 
     let activeCharacter = props.character;
@@ -13,13 +24,7 @@ const Card = (props) => {
         console.log(props.disable);
 
 
-    const clickCardHandler = () => {
-        if (!disable) {
-            setCardClickedState(!wasClicked);
-            props.clickedCard({ id: id, hero: activeCharacter, status: wasClicked });
-            setCardAsDisable(true);
-        }
-    }
+        
         
     useEffect(() => {
         if(props.disable)
@@ -29,7 +34,10 @@ const Card = (props) => {
     
       const onClick=props.onClick;
 
-    return <div className={wasClicked ? 'card' : 'cardRevealed'} onClick={onClick}/* onClick={clickCardHandler} */><CardImg id={id} activeCard={activeCharacter} isActive={wasClicked ? true : false} /></div>
+    return <div className={wasClicked ? 'card' : 'cardRevealed'} onClick={onClick}>
+       {/*  <CardImg id={id} activeCard={activeCharacter} isActive={wasClicked ? true : false} /> */}
+       <img src={props.imgSource}></img>
+        </div>
 }
 
 
