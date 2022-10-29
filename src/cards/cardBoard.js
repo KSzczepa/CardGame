@@ -8,7 +8,7 @@ import hogward from './img/hogwards.jpg'
 import harry from './img/harry.jpg'
 import ron from './img/ron.jpg'
 import hermione from './img/hermione.jpg'
-import dumpledore from './img/dumbledore.jpg'
+import dumbledore from './img/dumbledore.jpg'
 import voldemort from './img/voldemort.jpg'
 import dobby from './img/dobby.jpg'
 
@@ -16,7 +16,9 @@ import dobby from './img/dobby.jpg'
 
 const CardsBoard = (props) => {
 
-    
+    const visibleItems = props.visibleItems;
+    const setVisibleItem = props.setVisibleItem;
+    const compareCards = props.compareCards;
 
     const numberOfCards = props.items.length * 2;
     const characters = props.items;
@@ -24,25 +26,24 @@ const CardsBoard = (props) => {
     const [score, setScore] = useState(0);
     const [pairsleft, setPairsLeft] = useState(props.items.length);
     const [boardSorted, setArrayVal] = useState(SortCards(characters, numberOfCards));
-    const [visibleItems, setVisibleItem] = useState([]);
+    //const [visibleItems, setVisibleItem] = useState([]);
     
     console.log('boardSorted', boardSorted);
 
     
 
-    const compareCards = (card1, card2) => {
+    /* const compareCards = (card1, card2) => {
         setScore(score+ 1);
-        
+
         if (boardSorted[card1].character == boardSorted[card2].character) {
             console.log('point!');
             
             if (pairsleft > 0)
                 setPairsLeft(pairsleft-1);
             return true;
-        }
-        
+        }        
         return false;
-    }
+    } */
     
         
     const SetSrc = (image) => {
@@ -56,8 +57,8 @@ const CardsBoard = (props) => {
             case 'hermione':
                 image = hermione; 
                 break;
-            case 'dumpledore':
-                image = dumpledore; 
+            case 'dumbledore':
+                image = dumbledore; 
                 break;
             case 'voldemort':
                 image = voldemort; 
@@ -80,8 +81,10 @@ const CardsBoard = (props) => {
                 key={element.id}
                 id={element.id}
                 character={element.character}
+                active={element.active}
                 disable={element.disable}
                 onClick={()=>{
+                    element.active = true;
                     if (!element.disable) {
                         switch (visibleItems.length){
                             case 0: 
@@ -91,11 +94,16 @@ const CardsBoard = (props) => {
                                 break;
                             case 1:
                             {
+                                
                                 if (visibleItems[0] != element.id) {
                                     setVisibleItem(visibleItems.concat(element.id));
                                     if (compareCards(visibleItems[0], element.id)) {
                                         element.disable = true;
                                         boardSorted[visibleItems[0]].disable = true;
+                                    }
+                                    else {
+                                        element.active = false;
+                                        boardSorted[visibleItems[0]].active = false;
                                     }
                                 }
                                 
@@ -112,7 +120,7 @@ const CardsBoard = (props) => {
                     }
                     
                 }}
-                imgSource = {SetSrc(element.character)}
+                imgSource = {((visibleItems.includes(element.id) || element.disable) && element.active) ? SetSrc(element.character) : SetSrc()}
             />))}
         <Counter score={score} pairsleft={pairsleft}></Counter>
     </div>)

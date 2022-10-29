@@ -5,7 +5,7 @@ const SortCards = (characters,numberOfCards ) => {
     const charactersSorted = getRandomCardsOrder(characters, numberOfCards);
         
         for (let i = 0; i < numberOfCards; i++) {
-            charactersSorted.splice(i, 1, { id: i, character: charactersSorted[i], disable: false});
+            charactersSorted.splice(i, 1, { id: i, character: charactersSorted[i], disable: false, active: false});
         }
 
     return (charactersSorted)
