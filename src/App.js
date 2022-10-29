@@ -36,9 +36,9 @@ function App() {
   return (
     <div className="App">
             
-      <h1>Harry Potter Test</h1>
+      <h1>Harry Potter Memory Test</h1>
       <article>
-        <CardsBoard items={names} visibleItems={visibleItems} setVisibleItem={setVisibleItem} compareCards={compareCards} boardSorted={boardSorted}></CardsBoard>
+        <CardsBoard items={names} visibleItems={visibleItems} setVisibleItem={setVisibleItem} compareCards={compareCards} boardSorted={boardSorted} finishedItems={finishedItems} setFinishedItem={setFinishedItem}></CardsBoard>
         <Counter score={score} pairsleft={pairsleft}></Counter>
       </article>
     

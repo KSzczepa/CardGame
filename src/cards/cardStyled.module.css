@@ -6,7 +6,7 @@
     border: 4px solid rgb(39 33 1);
     border-radius: 4px;
     cursor: pointer;
-    filter: brightness(70%) sepia(10%);
+    filter: brightness(70%) sepia(5%);
     transition: all .3s ease-in-out;
     margin-left: 5px;
     margin-right: 5px;
@@ -14,7 +14,7 @@
 
 .card:hover{
     border: 4px solid darkgoldenrod;
-    filter: brightness(100%);
+    filter: brightness(90%);
     -webkit-transform: scale(0.95) !important;
     -ms-transform: scale(0.95) !important;
     transform: scale(0.95) !important;

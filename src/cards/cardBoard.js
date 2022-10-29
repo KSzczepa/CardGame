@@ -84,7 +84,7 @@ const CardsBoard = (props) => {
                 id={element.id}
                 character={element.character}
                 active={element.active}
-                disable={element.disable}
+                disable={(finishedItems.includes(element.id)) ? true : false}
                 onClick={()=>{
                     element.active = true;
                     if (!element.disable) {
