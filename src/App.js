@@ -20,6 +20,15 @@ function App() {
 	const [winner, setWinner] = useState(false);
 
 
+	const startNewGameHandler = () => {
+		setVisibleItem([]);
+		setFinishedItem([]);
+		setScore(0);
+		setPairsLeft(names.length);
+		setArrayVal(SortCards(names, numberOfCards));
+		setWinner(false);
+	}
+
 	const compareCards = (card1, card2) => {
 		setScore(score + 1);
 
@@ -59,6 +68,7 @@ function App() {
 		<div className="App">
 
 			<h1>Harry Potter Memory Test</h1>
+			<button className='newGame' onClick={startNewGameHandler}>New game</button>
 			<article>
 				<CardsBoard
 					visibleItems={visibleItems}
