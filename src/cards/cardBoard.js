@@ -18,6 +18,7 @@ const CardsBoard = (props) => {
     const compareCards = props.compareCards;
     const boardSorted = props.boardSorted;
     const finishedItems = props.finishedItems;
+    const blockFlag = props.blockFlag;
 
 
     const SetSrc = (image) => {
@@ -56,7 +57,7 @@ const CardsBoard = (props) => {
                 active={visibleItems.includes(element.id) ? true : false}
                 disable={finishedItems.includes(element.id) ? true : false}
                 onClick={() => {
-                    if (!element.disable) {
+                    if (!element.disable && !blockFlag) {
                         switch (visibleItems.length) {
                             case 0:
                                 setVisibleItem([element.id]);

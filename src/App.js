@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import CardsBoard from './cards/cardBoard';
 import Counter from './counter.js';
@@ -18,6 +17,8 @@ function App() {
 	const [pairsleft, setPairsLeft] = useState(names.length);
 	const [boardSorted, setArrayVal] = useState(SortCards(names, numberOfCards));
 	const [winner, setWinner] = useState(false);
+	const [blockFlag, setBlockFlag] = useState(false);
+	
 
 
 	const startNewGameHandler = () => {
@@ -29,18 +30,32 @@ function App() {
 		setWinner(false);
 	}
 
+	useEffect(() => {
+		if (blockFlag === true)
+		{const timer = setTimeout(() => {
+			console.log('clicked');
+			setVisibleItem([]);
+			// boardSorted[card1].disable = false;
+			// boardSorted[card2].disable = false;
+			setBlockFlag(false);
+			return () => {clearTimeout(timer)};
+		}, 600);}
+	  }, [blockFlag]);
+
 	const compareCards = (card1, card2) => {
 		setScore(score + 1);
+		setBlockFlag(true);
 
-		if (boardSorted[card1].character == boardSorted[card2].character) {
+		if (boardSorted[card1].character === boardSorted[card2].character) {
 			
 			setTimeout(() => {
 				setFinishedItem([...finishedItems, card1, card2]);
+				setBlockFlag(false);
 			}, 300);
 
 			if (pairsleft > 0)
 				setPairsLeft(pairsleft - 1);
-			if (pairsleft == 0)
+			if (pairsleft === 0)
 			{
 				
 					setWinner(true);
@@ -55,11 +70,11 @@ function App() {
 
 		else {
 			setTimeout(() => {
-				setVisibleItem([]);
+				// setVisibleItem([]);
+				boardSorted[card1].disable = false;
+				boardSorted[card2].disable = false;
 			}, 600);
 
-			boardSorted[card1].disable = false;
-			boardSorted[card2].disable = false;
 		}
 	}
 
@@ -76,7 +91,8 @@ function App() {
 					compareCards={compareCards}
 					boardSorted={boardSorted}
 					finishedItems={finishedItems}
-					setFinishedItem={setFinishedItem}>
+					setFinishedItem={setFinishedItem}
+					blockFlag={blockFlag}>
 				</CardsBoard>
 				<Counter score={score} pairsleft={pairsleft} winner={winner}></Counter>
 				
