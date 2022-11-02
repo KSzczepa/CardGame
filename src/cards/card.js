@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-//import './card.css'
+import React from 'react';
 import styles from './cardStyled.module.css';
-import CardsBoard from './cardBoard'
 
 
 
@@ -9,6 +7,7 @@ const Card = (props) => {
 
     const disable = props.disable;
     const active = props.active;
+
 
     const onClick = props.onClick;
 
