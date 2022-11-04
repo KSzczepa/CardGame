@@ -51,7 +51,7 @@ function App() {
 			setTimeout(() => {
 				setFinishedItem([...finishedItems, card1, card2]);
 				setBlockFlag(false);
-			}, 300);
+			}, 600);
 
 			if (pairsleft > 0)
 				setPairsLeft(pairsleft - 1);

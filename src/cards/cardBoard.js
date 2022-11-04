@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './cardBoard.css';
 import Card from './card.js';
 import hogward from './img/hogwards.jpg'
@@ -9,7 +9,7 @@ import dumbledore from './img/dumbledore.jpg'
 import voldemort from './img/voldemort.jpg'
 import dobby from './img/dobby.jpg'
 
-
+import styles from './cardStyled.module.css';
 
 const CardsBoard = (props) => {
 
@@ -47,6 +47,23 @@ const CardsBoard = (props) => {
         return image;
     }
 
+    const [cardAnimated, setCardAnimated] = useState(false);
+    const {length} = visibleItems;
+
+    useEffect(()=> {
+        if (length === 0) {
+            return;
+        }
+        setCardAnimated(true);
+        const timer = setTimeout(() => {
+            setCardAnimated(false);
+        }, 600);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [length]);
+
 
     return (<div className='board'>
         {boardSorted.map((element) => (
@@ -79,6 +96,7 @@ const CardsBoard = (props) => {
                     }
                 }}
                 imgSource={((visibleItems.includes(element.id) || finishedItems.includes(element.id))) ? SetSrc(element.character) : SetSrc()}
+                style={`${styles['card']} ${element.disable ? styles.finished : (element.active && styles.revealed)} ${(cardAnimated && (visibleItems.includes(element.id))) ? styles['rotate-card'] : ''}`}
             />))}
     </div>)
 }
