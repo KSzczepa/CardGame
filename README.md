@@ -1,5 +1,7 @@
 # Card Memory Game
 
+The game helps with training your memory.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
