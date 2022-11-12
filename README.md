@@ -1,8 +1,6 @@
-# Card Memory Game
+# Card Memory Game 
 
-The game helps with training your memory.
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The card game inspired by Harry Potter. The goal is to guess all the pairs in as few moves as possible. 
 
 ## Available Scripts
 
@@ -12,3 +10,4 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
